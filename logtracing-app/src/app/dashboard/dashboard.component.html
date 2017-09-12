@@ -1,0 +1,61 @@
+<div class="container-fluid tracing">
+  <div class="row padd-search">
+    <div class="col-sm-2">MDN: <input type="text" id="mdn" [(ngModel)]="mdn"></div>
+    <div class="col-sm-2">From: <input type="date" id="starttime" [(ngModel)]="starttime"></div>
+    <div class="col-sm-2">To: <input type="date" id="endtime" [(ngModel)]="endtime"></div>
+    <div class="col-sm-2">
+      <label for="indexdata">Select Index:
+        <select id="indexdata" [(ngModel)]="indexdata">
+          <option value="logstash-5">logstash-5</option>
+          <option value="logstash-4">logstash-4</option>
+        </select>
+      </label>
+    </div>
+    <div class="col-sm-2">
+      <label for="usecase">Use Case:
+        <select id="usecase" [(ngModel)]="usecase">
+          <option value="ServiceAttach">ServiceAttach</option>
+        </select>
+      </label></div>
+      <button type="submit" class=" col-sm-2 btn btn-primary" (click)="getUrlsData()">OK</button>
+  </div>
+  <div class="diagram"></div>
+
+  <div class="padd-search" *ngIf="errorFlag">
+    <div class="alert alert-danger">Error event:
+      <div *ngFor="let error of errorList">
+        <div>Source id: {{error.sourceId}}</div>
+        <div>Event name: {{error.eventName}}</div>
+        <div>Error text: {{error.errorText}}</div>
+        <div>Date: {{error.date}}</div>
+      </div>
+    </div>
+  </div>
+
+  <app-dialog [(visible)]="showDialog">
+    <h3 *ngIf="tooltipFlag" class="padd-line text-center">Message info:</h3>
+    <h3 *ngIf="serviceDetails" class="padd-line text-center">Sevice details</h3>
+    <hr>
+    <div *ngIf="tooltipFlag">
+    <div *ngFor="let info of filterTooltip">
+      <div class="alert alert-info">
+      <div class="padd-line">Time slot: {{info.message}}</div>
+      <div class="padd-line">Message: {{info.tooltip}}</div>
+      </div>
+    </div>
+    </div>
+    <div *ngIf="serviceDetails">
+      <div class="alert alert-info">
+        <div class="padd-line"> Service Name: {{sn}}</div>
+        <div class="padd-line"> MDN: {{mdn}}</div>
+
+      </div>
+    </div>
+  </app-dialog>
+</div>
+
+
+
+
+
+
